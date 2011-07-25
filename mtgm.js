@@ -59,13 +59,17 @@ chrome.extension.sendRequest({storage: "getSettings"}, function(r) {
 
 // Called when an element is added after page load
 function inserted(e) {
-	if (e.target.nodeName == "A" && e.target.href.match(/^mailto:/i))
+	if (e.target.nodeName == "A" && e.target.href.match(/^mailto:/i)){
 		setLink(e.target);
-	var nodes = e.target.getElementsByTagName('A');
-	for (var z = 0; z < nodes.length; z++){
-		if (nodes[z].href.match(/^mailto:/i))
-			setLink(nodes[z]);
-	}
+    }
+    
+    if(e.target.getElementsByTagName){
+        var nodes = e.target.getElementsByTagName('A');
+        for (var z = 0; z < nodes.length; z++){
+            if (nodes[z].href.match(/^mailto:/i))
+                setLink(nodes[z]);
+        }
+    }
 }
 
 // Watch for inserted mailto links
