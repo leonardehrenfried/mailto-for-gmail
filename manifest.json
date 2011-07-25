@@ -1,0 +1,18 @@
+{
+   "background_page": "background.html",
+   "content_scripts": [ {
+      "js": [ "mtgm.js" ],
+      "matches": [ "http://*/*", "https://*/*" ]
+   } ],
+   "description": "Makes mailto: links open a Gmail\u2122 compose window",
+   "icons": {
+      "128": "icon128.png",
+      "16": "icon16.png",
+      "48": "icon48.png"
+   },
+   "key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC30/wC7ID7+IlH9Gk4FsRlPrfulo/21IP+VbGSm2kr3JOaBq71+csY0LbH2wdGwifuZTWKGyAj9GCbwzL9i5leTNLYlrkQlOKyl1VadY0PPr2wjhsFiUNOPiEWal1rGSWQ3V5HCQnHyLe1Upw9eJ+txi6j/WrWZEaZEm+j6Y2U+QIDAQAB",
+   "name": "Mailto: for Gmail\u2122",
+   "options_page": "options.html",
+   "update_url": "http://clients2.google.com/service/update2/crx",
+   "version": "2.0"
+}

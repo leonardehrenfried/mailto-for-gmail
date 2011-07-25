@@ -1,0 +1,96 @@
+﻿<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<title>
+		Mailto: for Gmail™ options
+	</title>
+	<style type="text/css">
+		body { font-family: calibri, helvetica, arial, sans-serif; background-color: #eef }
+		#wrap { width: 400px; margin: 10% auto 0 auto; border-radius: 1em }
+		#main { padding: 0 1em 1em 1em; border: 1px solid black; border-radius: 1em; background-color: #eef}
+		#status { text-align: center; background-color: #B0C4DE; font-size: 120%; border-radius: 0 0 1em 1em; padding: 5px; height: 1.3em  }
+	</style>
+	<script type="text/javascript">
+
+	// Saves options to localStorage.
+	function save_options() {
+		var f = document.getElementById("options");
+		var useGApps = f.o_useGApps.checked;
+		var gaDomain = f.o_gaDomain.value;
+		if (useGApps == true && gaDomain == "") {
+				updateStatus('Fill in the Google Apps domain you wish to use.');
+				return;
+		} else if (useGApps == true && gaDomain != "") {
+				localStorage["useGApps"] = useGApps;
+				localStorage["gaDomain"] = gaDomain;
+		} else if (useGApps == false) {
+				localStorage["useGApps"] = useGApps;
+				localStorage["gaDomain"] = "";
+		}
+		var allowBcc = f.o_allowBcc.checked;
+		localStorage["allowBcc"] = allowBcc;
+		var useWindow = f.o_useWindow.checked;
+		localStorage["useWindow"] = useWindow;
+		
+		updateStatus('Options Saved.');
+	}
+
+	// Restores select box state to saved value from localStorage.
+	function restore_options() {
+		var f = document.getElementById("options");
+		var useGApps = toBool(localStorage["useGApps"]);
+		f.o_useGApps.checked = useGApps;
+		if (useGApps) {
+				var gaDomain = localStorage["gaDomain"];
+				f.o_gaDomain.value = gaDomain;
+		}
+		f.o_allowBcc.checked = toBool(localStorage["allowBcc"]);
+		f.o_useWindow.checked = toBool(localStorage["useWindow"]);
+		
+	}
+	
+	// Update status to let user know options were saved.
+	function updateStatus(s) {
+		var status = document.getElementById("status");
+		var wrap = document.getElementById("wrap");
+		status.innerHTML = s;
+		status.style.visibility = "visible";
+		wrap.style.backgroundColor = "#B0C4DE";
+		setTimeout(function() {
+			status.innerHTML = "";
+			status.style.visibility = "hidden";
+			wrap.style.backgroundColor = "#eef";
+		}, 2000);
+	}
+
+	// Convert string values from localStorage to boolean
+	function toBool(s) {
+		if (s === "false")	return false;
+		else 				return s;
+	}
+	</script>
+</head>
+<body onload="restore_options()">
+	
+	<div id="wrap">
+		<div id="main">
+			<img src="icon128.png" alt="MTGM" style="float: right">
+			<h1>
+				Mailto: for Gmail™
+			</h1>
+			<h2>
+				<i>Options</i>
+			</h2>
+			<form name="options" id="options" action="#">
+				<input type="checkbox" name="o_useGApps" id="o_useGApps" value="o_useGApps"> <label for="o_useGApps">Use Google Apps domain:</label> <input type="text" name="o_gaDomain" id="o_gaDomain" value="" placeholder="exampledomain.com"><br>
+				<input type="checkbox" name="o_allowBcc" id="o_allowBcc" value="o_allowBcc"> <label for="o_allowBcc">Allow BCC: fields to be filled.</label><br>
+				<input type="checkbox" name="o_useWindow" id="o_useWindow" value="o_useWindow"><label for="o_useWindow">Force opening in a new window.</label><br>
+				<br>
+				<input type="button" name="o_save" id="o_save" value="Save" onclick="save_options()"> <input type="button" name="o_reset" value="Reset" id="o_reset" onclick="restore_options()">
+			</form>
+		</div>
+		<div id="status" style="visibility: hidden"></div>
+	</div>
+</body>
+</html>
